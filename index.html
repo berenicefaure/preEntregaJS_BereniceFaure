@@ -11,12 +11,29 @@
 
 </head>
 
-<body>
+
+<body class="body-login">
+    <h1>Registro de alumnos para docentes</h1>
+<section class="contenedor-inicio">
 
 
-<section class="form">
-    <h1>REGISTRO DE ALUMNOS</h1>
-    <h2>Utiliza esta app para organizar tu clase</h2>
+<section class="">
+    <img class="img-aula" src="/img/aula.jfif" alt="clase">
+</section>
+
+<section class="login">
+    <form id="login-form">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login" onclick="return login();">
+      </form>
+      <div id="message"></div>
+      <script src="script.js"></script>
+</section>
+
+
 </section>
     <script src="/js/main.js"></script>
 </body>

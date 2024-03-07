@@ -1,113 +1,130 @@
-class Alumno {
-    constructor(nombre) {
-        this.nombre = nombre;
-        this.notas = [];
-        this.promedio = 0;
-        this.inasistencias = 0;
-        this.condicion = '';
-    }
+//Login verificacion
+function login() {
+  // Get the values of the username and password fields
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
 
-    agregarNota(nota) {
-        if (!isNaN(nota)) {
-            this.notas.push(parseFloat(nota));
-        } else {
-            console.log("Error: La nota ingresada no es válida. No se agregó la nota.");
-        }
-    }
+  // Store the values in the browser's local storage
+  localStorage.setItem("username", username);
+  localStorage.setItem("password", password);
 
-    calcularPromedio() {
-        let sum = this.notas.reduce((acc, nota) => acc + nota, 0);
-        this.promedio = sum / this.notas.length;
-    }
+  // Redirect to another page
+  window.location.href = other_page.html;
 
-    verificarCondicion() {
-        if (this.promedio >= 6 && this.inasistencias <= 15) {
-            this.condicion = 'Regular';
-        } else {
-            this.condicion = 'Libre';
-        }
-    }
+  // Prevent the form from submitting in the traditional way
+  return false;
 }
 
-let alumnos = [];
+// class Alumno {
+//     constructor(nombre) {
+//         this.nombre = nombre;
+//         this.notas = [];
+//         this.promedio = 0;
+//         this.inasistencias = 0;
+//         this.condicion = '';
+//     }
 
-function agregarAlumno() {
-    let nombreAlumno = prompt("Ingresar nombre del alumno:");
-    let alumno = new Alumno(nombreAlumno);
+//     agregarNota(nota) {
+//         if (!isNaN(nota)) {
+//             this.notas.push(parseFloat(nota));
+//         } else {
+//             console.log("Error: La nota ingresada no es válida. No se agregó la nota.");
+//         }
+//     }
 
-    let cantidadNotas = parseInt(prompt("Ingrese la cantidad de notas a ingresar: "));
-    for (let i = 0; i < cantidadNotas; i++) {
-        let nota = prompt(`Ingrese nota ${i + 1}: `);
-        alumno.agregarNota(nota);
-    }
+//     calcularPromedio() {
+//         let sum = this.notas.reduce((acc, nota) => acc + nota, 0);
+//         this.promedio = sum / this.notas.length;
+//     }
 
-    alumno.calcularPromedio();
+//     verificarCondicion() {
+//         if (this.promedio >= 6 && this.inasistencias <= 15) {
+//             this.condicion = 'Regular';
+//         } else {
+//             this.condicion = 'Libre';
+//         }
+//     }
+// }
 
-    alumno.inasistencias = parseInt(prompt("Ingresar cantidad de faltas: "));
+// let alumnos = [];
+
+// function agregarAlumno() {
+//     let nombreAlumno = prompt("Ingresar nombre del alumno:");
+//     let alumno = new Alumno(nombreAlumno);
+
+//     let cantidadNotas = parseInt(prompt("Ingrese la cantidad de notas a ingresar: "));
+//     for (let i = 0; i < cantidadNotas; i++) {
+//         let nota = prompt(`Ingrese nota ${i + 1}: `);
+//         alumno.agregarNota(nota);
+//     }
+
+//     alumno.calcularPromedio();
+
+//     alumno.inasistencias = parseInt(prompt("Ingresar cantidad de faltas: "));
     
-    alumno.verificarCondicion();
+//     alumno.verificarCondicion();
 
-    if (alumno.condicion === 'Regular') {
-        console.log(alumno.nombre + " : Condición regular");
-    } else {
-        console.log(alumno.nombre + " : Condición libre");
-    }
+//     if (alumno.condicion === 'Regular') {
+//         console.log(alumno.nombre + " : Condición regular");
+//     } else {
+//         console.log(alumno.nombre + " : Condición libre");
+//     }
 
-    if (alumno.condicion === 'Regular') {
-        console.log(alumno.nombre + " recibe una nota final de: " + alumno.promedio);
-    }
+//     if (alumno.condicion === 'Regular') {
+//         console.log(alumno.nombre + " recibe una nota final de: " + alumno.promedio);
+//     }
     
-    alumnos.push(alumno);
-}
+//     alumnos.push(alumno);
+// }
 
-function eliminarAlumno() {
-    let nombreAlumno = prompt("Ingrese el nombre del alumno a eliminar: ");
-    let index = alumnos.findIndex(alumno => alumno.nombre === nombreAlumno);
-    if (index !== -1) {
-        alumnos.splice(index, 1);
-        console.log(`Alumno "${nombreAlumno}" eliminado.`);
-    } else {
-        console.log("Alumno no encontrado.");
-    }
-}
+// function eliminarAlumno() {
+//     let nombreAlumno = prompt("Ingrese el nombre del alumno a eliminar: ");
+//     let index = alumnos.findIndex(alumno => alumno.nombre === nombreAlumno);
+//     if (index !== -1) {
+//         alumnos.splice(index, 1);
+//         console.log(`Alumno "${nombreAlumno}" eliminado.`);
+//     } else {
+//         console.log("Alumno no encontrado.");
+//     }
+// }
 
 
-function mostrarAlumnos() {
-    if (alumnos.length === 0) {
-        console.log("No se ha ingresado ningún alumno aún.");
-    } else {
-        let listaAlumnos = "LISTA DE ALUMNOS INGRESADOS:\n";
-        alumnos.forEach((alumno, index) => {
-            listaAlumnos += `${index + 1}. ${alumno.nombre}\n`;
-        });
-        console.log(listaAlumnos);
-    }
-}
+// function mostrarAlumnos() {
+//     if (alumnos.length === 0) {
+//         console.log("No se ha ingresado ningún alumno aún.");
+//     } else {
+//         let listaAlumnos = "LISTA DE ALUMNOS INGRESADOS:\n";
+//         alumnos.forEach((alumno, index) => {
+//             listaAlumnos += `${index + 1}. ${alumno.nombre}\n`;
+//         });
+//         console.log(listaAlumnos);
+//     }
+// }
 
-// Menú con switch
-let option;
-do {
-    option = parseInt(prompt(
-        "REGISTRO DE ALUMNOS\n" +
-        "1. Ingresar nombre de alumno, calcular nota y condición final\n" +
-        "2. Eliminar alumno\n" +
-        "3. Consultar lista de alumnos\n" +
-        "4. Salir\n" +
-        "Ingrese la opción deseada:"
-    ));
+// // Menú con switch
+// let option;
+// do {
+//     option = parseInt(prompt(
+//         "REGISTRO DE ALUMNOS\n" +
+//         "1. Ingresar nombre de alumno, calcular nota y condición final\n" +
+//         "2. Eliminar alumno\n" +
+//         "3. Consultar lista de alumnos\n" +
+//         "4. Salir\n" +
+//         "Ingrese la opción deseada:"
+//     ));
 
-    switch (option) {
-        case 1:
-            agregarAlumno();
-            break;
-        case 2:
-            eliminarAlumno();
-            break;
-        case 3:
-            mostrarAlumnos();
-            break;
-        default:
-            console.log("Opción no válida");
-            break;
-    }
-} while (option !== 4);
+//     switch (option) {
+//         case 1:
+//             agregarAlumno();
+//             break;
+//         case 2:
+//             eliminarAlumno();
+//             break;
+//         case 3:
+//             mostrarAlumnos();
+//             break;
+//         default:
+//             console.log("Opción no válida");
+//             break;
+//     }
+// } while (option !== 4);
