@@ -1,21 +1,40 @@
-//Login verificacion
-function login() {
-  // Get the values of the username and password fields
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
 
-  // Store the values in the browser's local storage
+
+//Login
+function login() {
+  // Trae el valor del user + contraseña 
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+
+  // Setea los valores en el localStorageStore 
   localStorage.setItem("username", username);
   localStorage.setItem("password", password);
 
-  // Redirect to another page
+  // Redirige a otra página (acá iría el perfil del user)
   window.location.href = other_page.html;
 
-  // Prevent the form from submitting in the traditional way
+  // Prevent default?
   return false;
+
 }
 
-// class Alumno {
+function crearHtml(){
+
+  // Crea elementos HTML dinámicamente
+  let nuevoParrafo = document.createElement('p');
+  nuevoParrafo.textContent = `¡Hola, , este párrafo fue creado con JavaScript!`;
+
+  let nuevoTitulo = document.createElement('h1');
+  nuevoTitulo.textContent = 'Página creada con JavaScript';
+
+  // Agrega los elementos al cuerpo del documento HTML
+  document.body.appendChild(nuevoTitulo);
+  document.body.appendChild(nuevoParrafo);
+}
+window.onload = function() {
+  crearHtml();
+};
+// class Alumno { add event listener (se usa para asignar funciones a cada boton)
 //     constructor(nombre) {
 //         this.nombre = nombre;
 //         this.notas = [];
