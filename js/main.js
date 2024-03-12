@@ -17,22 +17,28 @@ function login() {
   return false;
 }
 
-function crearHtml(){
 
+function crearHtml() {
   // Crea elementos HTML dinámicamente
   let nuevoParrafo = document.createElement('p');
-  nuevoParrafo.textContent = '¡Hola!';
+  nuevoParrafo.textContent = `¡Hola, este párrafo fue creado con JavaScript!`;
 
   let nuevoTitulo = document.createElement('h1');
-  nuevoTitulo.textContent = '¡Hola!';
+  nuevoTitulo.textContent = 'Página creada con JavaScript';
 
   // Agrega los elementos al cuerpo del documento HTML
-
+  document.body.appendChild(nuevoTitulo);
+  document.body.appendChild(nuevoParrafo);
 }
+
+// Llama a la función cuando se carga la página
+
+if (window.location.pathname === '/other_page.html') {
 window.onload = function() {
   crearHtml();
-};
-
+}
+}
+;
 
 // class Alumno { add event listener (se usa para asignar funciones a cada boton)
 //     constructor(nombre) {
