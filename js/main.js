@@ -11,29 +11,29 @@ function login() {
   localStorage.setItem("password", password);
 
   // Redirige a otra página (acá iría el perfil del user)
-  window.location.href = other_page.html;
+  window.location.href = 'other_page.html';
 
   // Prevent default?
   return false;
-
 }
 
 function crearHtml(){
 
   // Crea elementos HTML dinámicamente
   let nuevoParrafo = document.createElement('p');
-  nuevoParrafo.textContent = `¡Hola, , este párrafo fue creado con JavaScript!`;
+  nuevoParrafo.textContent = '¡Hola!';
 
   let nuevoTitulo = document.createElement('h1');
-  nuevoTitulo.textContent = 'Página creada con JavaScript';
+  nuevoTitulo.textContent = '¡Hola!';
 
   // Agrega los elementos al cuerpo del documento HTML
-  document.body.appendChild(nuevoTitulo);
-  document.body.appendChild(nuevoParrafo);
+
 }
 window.onload = function() {
   crearHtml();
 };
+
+
 // class Alumno { add event listener (se usa para asignar funciones a cada boton)
 //     constructor(nombre) {
 //         this.nombre = nombre;
