@@ -20,18 +20,20 @@ function login() {
 
 function crearHtml() {
   // Crea elementos HTML dinámicamente
-  let nuevoParrafo = document.createElement('p');
-  nuevoParrafo.textContent = `¡Hola, este párrafo fue creado con JavaScript!`;
 
+  
   let nuevoTitulo = document.createElement('h1');
-  nuevoTitulo.textContent = 'Página creada con JavaScript';
+  nuevoTitulo.textContent = 'Bienvenidx, ${username}';
+
+  let nuevoParrafo = document.createElement('p');
+  nuevoParrafo.textContent = `En este espacio podrás llevar un registro de tus cursos y tus alumnos`;
 
   // Agrega los elementos al cuerpo del documento HTML
   document.body.appendChild(nuevoTitulo);
   document.body.appendChild(nuevoParrafo);
 }
 
-// Llama a la función cuando se carga la página
+// Llama a la función cuando se carga la página específica
 
 if (window.location.pathname === '/other_page.html') {
 window.onload = function() {
