@@ -11,7 +11,7 @@ function login() {
   localStorage.setItem("password", password);
 
   // Redirige a otra página (acá iría el perfil del user)
-  window.location.href = 'other_page.html';
+  window.location.href = 'perfil.html';
 
   // Prevent default?
   return false;
@@ -35,7 +35,7 @@ function crearHtml() {
 
 // Llama a la función cuando se carga la página específica
 
-if (window.location.pathname === '/other_page.html') {
+if (window.location.pathname === '/perfil.html') {
 window.onload = function() {
   crearHtml();
 }
