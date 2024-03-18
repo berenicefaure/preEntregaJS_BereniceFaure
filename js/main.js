@@ -42,6 +42,24 @@ window.onload = function() {
 }
 ;
 
+//lista de alumnos 
+let coll = document.getElementsByClassName("collapsible");
+let i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    let content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+//class Cursos
+
 // class Alumno { add event listener (se usa para asignar funciones a cada boton)
 //     constructor(nombre) {
 //         this.nombre = nombre;
