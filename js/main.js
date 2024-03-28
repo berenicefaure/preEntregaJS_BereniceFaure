@@ -18,45 +18,180 @@ function login() {
 }
 
 
-function crearHtml() {
-  // Crea elementos HTML dinámicamente
 
-  
-  let nuevoTitulo = document.createElement('h1');
-  nuevoTitulo.textContent = 'Bienvenidx, ${username}';
-
-  let nuevoParrafo = document.createElement('p');
-  nuevoParrafo.textContent = `En este espacio podrás llevar un registro de tus cursos y tus alumnos`;
-
-  // Agrega los elementos al cuerpo del documento HTML
-  document.body.appendChild(nuevoTitulo);
-  document.body.appendChild(nuevoParrafo);
-}
-
-// Llama a la función cuando se carga la página específica
-
-if (window.location.pathname === '/perfil.html') {
-window.onload = function() {
-  crearHtml();
-}
-}
-;
 
 //lista de alumnos 
-let coll = document.getElementsByClassName("collapsible");
-let i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    let content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
+document.getElementById('formularioAlumno').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+  // Obtiene los datos del formulario
+  const nombre = document.getElementById('nombre').value;
+  const edad = document.getElementById('edad').value;
+  const curso = document.getElementById('curso').value;
+
+  // Obtiene la lista actual de alumnos del almacenamiento local
+  let listaAlumnos = localStorage.getItem('listaAlumnos');
+
+  if (!listaAlumnos) {
+    // Si no hay una lista de alumnos, crea una nueva lista vacía
+    listaAlumnos = [];
+  } else {
+    // Si hay una lista de alumnos, convierte la cadena JSON en un array
+    listaAlumnos = JSON.parse(listaAlumnos);
+  }
+
+  // Crea un objeto con los datos del alumno
+  const alumno = { nombre, edad, curso };
+
+  // Agrega el nuevo alumno a la lista
+  listaAlumnos.push(alumno);
+
+  // Guarda la lista actualizada de alumnos en el almacenamiento local
+  localStorage.setItem('listaAlumnos', JSON.stringify(listaAlumnos));
+
+  // Limpia los campos del formulario
+  document.getElementById('nombre').value = '';
+  document.getElementById('edad').value = '';
+  document.getElementById('curso').value = '';
+
+});
+
+
+function mostrarAlumnos() {
+  const listaAlumnos = document.getElementById('listaAlumnos'); // 
+  listaAlumnos.innerHTML = '';
+
+  // Obtiene la lista de alumnos del almacenamiento local
+  const listaAlumnosJSON = localStorage.getItem('listaAlumnos');
+
+  if (listaAlumnosJSON) {
+    // Si hay una lista de alumnos, convierte la cadena JSON en un array
+    const listaAlumnosArray = JSON.parse(listaAlumnosJSON); 
+
+    // Itera sobre la lista de alumnos y muestra cada uno en la lista
+    listaAlumnosArray.forEach(function(alumno) { 
+      const li = document.createElement('li');
+      li.textContent = `Nombre: ${alumno.nombre}, Edad: ${alumno.edad}, Curso: ${alumno.curso}`;
+      listaAlumnos.appendChild(li); // 
+    });
+  }
 }
+
+
+
+// Actualizar un alumno
+function actualizarAlumno(index, nombre, edad, curso) {
+  let listaAlumnos = JSON.parse(localStorage.getItem('listaAlumnos'));
+  listaAlumnos[index] = { nombre, edad, curso };
+  localStorage.setItem('listaAlumnos', JSON.stringify(listaAlumnos));
+}
+
+// Eliminar un alumno
+function eliminarAlumno(index) {
+  let listaAlumnos = JSON.parse(localStorage.getItem('listaAlumnos'));
+  listaAlumnos.splice(index, 1);
+  localStorage.setItem('listaAlumnos', JSON.stringify(listaAlumnos));
+}
+
+
+
+// Función para mostrar la lista de alumnos con opciones de editar y eliminar
+function mostrarAlumnosConOpciones() {
+  const listaAlumnosContainer = document.getElementById('listaAlumnos');
+  listaAlumnosContainer.innerHTML = '';
+
+  const listaAlumnosJSON = localStorage.getItem('listaAlumnos');
+
+  if (listaAlumnosJSON) {
+    const listaAlumnos = JSON.parse(listaAlumnosJSON);
+
+    listaAlumnos.forEach(function(alumno, index) {
+      const li = document.createElement('li');
+      li.textContent = `Nombre: ${alumno.nombre}, Edad: ${alumno.edad}, Curso: ${alumno.curso}`;
+
+      // Botón de Editar
+      const editarButton = crearBoton('Editar', function() {
+        mostrarFormularioEditarAlumno(index);
+      });
+
+      // Botón de Eliminar
+      const eliminarButton = crearBoton('Eliminar', function() {
+        eliminarAlumno(index);
+        mostrarAlumnosConOpciones(); // Vuelve a mostrar la lista actualizada
+      });
+
+      // Agregar botones a la lista de alumnos
+      li.appendChild(editarButton);
+      li.appendChild(eliminarButton);
+
+      listaAlumnosContainer.appendChild(li);
+    });
+  }
+}
+
+// Función para crear un botón con un texto y una función de clic
+function crearBoton(texto, funcionClic) {
+  const boton = document.createElement('button');
+  boton.textContent = texto;
+  boton.addEventListener('click', funcionClic);
+  return boton;
+}
+
+// Función para mostrar formulario para editar un alumno
+function mostrarFormularioEditarAlumno(index) {
+  const listaAlumnosContainer = document.getElementById('listaAlumnos');
+  listaAlumnosContainer.innerHTML = '';
+
+  const listaAlumnosJSON = localStorage.getItem('listaAlumnos');
+
+  if (listaAlumnosJSON) {
+    const listaAlumnos = JSON.parse(listaAlumnosJSON);
+    const alumno = listaAlumnos[index];
+
+    const form = document.createElement('form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita que el formulario se envíe
+
+      // Obtiene los nuevos datos del alumno
+      const nuevoNombre = form.querySelector('.nombre').value;
+      const nuevaEdad = form.querySelector('.edad').value;
+      const nuevoCurso = form.querySelector('.curso').value;
+
+      // Actualiza los datos del alumno
+      listaAlumnos[index] = { nombre: nuevoNombre, edad: nuevaEdad, curso: nuevoCurso };
+      localStorage.setItem('listaAlumnos', JSON.stringify(listaAlumnos));
+
+      mostrarAlumnosConOpciones(); // Vuelve a mostrar la lista de alumnos con opciones
+    });
+
+    // Campos editables para el formulario
+    ['nombre', 'edad', 'curso'].forEach(function(prop) {
+      const input = document.createElement('input');
+      input.setAttribute('type', 'text');
+      input.setAttribute('class', prop);
+      input.setAttribute('value', alumno[prop]);
+      form.appendChild(input);
+    });
+
+    // Botón de guardar cambios
+    const guardarButton = document.createElement('button');
+    guardarButton.textContent = 'Guardar';
+    form.appendChild(guardarButton);
+
+    listaAlumnosContainer.appendChild(form);
+  }
+}
+
+// Mostrar alumnos con opciones al cargar la página
+mostrarAlumnosConOpciones();
+
+
+
+
+
+
+
 
 //class Cursos
 
